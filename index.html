@@ -51,6 +51,40 @@
         }
 
 
+#item2 .tooltip {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 20px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+    z-index: 20; 
+}
+
+
+#item2:hover .tooltip {
+    opacity: 1;
+}
+
+#item2 iframe {
+    position: relative;
+    z-index: 1;
+}
+
+
+#item2 .overlay {
+    position: absolute;
+    z-index: 5;
+}
+
+
+
 .grid-item.expanded {
     position: fixed;
     inset: 0;
@@ -63,7 +97,7 @@
     background: #e0f2e9;
 }
 
-/* 放大后内容（iframe + canvas）居中且等比例 */
+
 .grid-item.expanded iframe,
 .grid-item.expanded canvas {
     position: static !important;
@@ -103,11 +137,14 @@
             <div class="close-btn" onclick="shrinkItem('item1')">✕</div>
         </div>
 
-        <div class="grid-item" id="item2">
-            <iframe src="fire.html"></iframe>
-            <div class="overlay" onclick="expandItem('item2')"></div>
-            <div class="close-btn" onclick="shrinkItem('item2')">✕</div>
-        </div>
+<div class="grid-item" id="item2">
+    <iframe src="fire.html"></iframe>
+    <div class="tooltip">Turn on your flashlight to play</div>
+
+    <div class="overlay" onclick="expandItem('item2')"></div>
+    <div class="close-btn" onclick="shrinkItem('item2')">✕</div>
+</div>
+
 
 
         <div class="grid-item" id="item3">
@@ -142,5 +179,7 @@
 
     <script src="water.js"></script>
 
+
 </body>
 </html>
+
