@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #e0f2e9;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .row-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60vw;
+            height: 40vh;
+            gap: 10px;
+        }
+
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            background:#e0f2e9;
+            transition: all .5s;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+
+.grid-item.expanded {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e0f2e9;
+}
+
+/* 放大后内容（iframe + canvas）居中且等比例 */
+.grid-item.expanded iframe,
+.grid-item.expanded canvas {
+    position: static !important;
+    width: 90vmin;
+    height: 90vmin;
+    object-fit: contain;
+    transform: none !important;
+    margin: auto;
+}
+
+
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #6abf9c;
+            color: #e0f2e9;
+            border-radius: 50%;
+            font-size: 24px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="row-container">
+
+        <div class="grid-item" id="item1">
+            <div class="overlay" onclick="expandItem('item1')"></div>
+            <div class="close-btn" onclick="shrinkItem('item1')">✕</div>
+        </div>
+
+        <div class="grid-item" id="item2">
+            <iframe src="fire.html"></iframe>
+            <div class="overlay" onclick="expandItem('item2')"></div>
+            <div class="close-btn" onclick="shrinkItem('item2')">✕</div>
+        </div>
+
+
+        <div class="grid-item" id="item3">
+            <iframe src="flowers.html"></iframe>
+            <div class="overlay" onclick="expandItem('item3')"></div>
+            <div class="close-btn" onclick="shrinkItem('item3')">✕</div>
+        </div>
+
+    </div>
+
+    <script>
+        function expandItem(id) {
+            const box = document.getElementById(id);
+            const overlay = box.querySelector(".overlay");
+            const closeBtn = box.querySelector(".close-btn");
+            box.classList.add("expanded");
+            overlay.style.display = "none";
+            closeBtn.style.display = "flex";
+        }
+
+        function shrinkItem(id) {
+            event.stopPropagation();
+            const box = document.getElementById(id);
+            const overlay = box.querySelector(".overlay");
+            const closeBtn = box.querySelector(".close-btn");
+            box.classList.remove("expanded");
+            overlay.style.display = "block";
+            closeBtn.style.display = "none";
+        }
+    </script>
+
+
+    <script src="water.js"></script>
+
+</body>
+</html>
